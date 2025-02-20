@@ -96,8 +96,11 @@ def convert_operators(expression_entry):
     global hidden_expression_text
     hidden_expression_text = expression_entry.get()
     
+    hidden_expression_text = hidden_expression_text.replace("÷", "/")
+    hidden_expression_text = hidden_expression_text.replace("•", "*")
     hidden_expression_text = hidden_expression_text.replace("^", "**")
     hidden_expression_text = hidden_expression_text.replace("log", "log10")
+    hidden_expression_text = hidden_expression_text.replace("ln", "log")
     hidden_expression_text = re.sub(r'\|([^|]+)\|', r'fabs(\1)', hidden_expression_text) #valore assoluto
     hidden_expression_text = hidden_expression_text.replace("√", "sqrt")
     hidden_expression_text = hidden_expression_text.replace("!", "factorial")
@@ -105,7 +108,6 @@ def convert_operators(expression_entry):
 
 def solve_expression(expression_entry):
     global expression_text, hidden_expression_text
-
     convert_operators(expression_entry)
     convert_constants()
     try:
