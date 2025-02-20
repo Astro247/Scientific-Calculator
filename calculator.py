@@ -191,11 +191,6 @@ def main():
         constant_button.grid(row=row, column=column, padx=5, pady=5) 
 
     for (symbol, row, column) in OPERATORS_BUTTONS_LIST:
-        if symbol == "log":
-           operator_button = Button(operators_frame, text=symbol, width=5, height=2, font=("Arial", 20, "bold"), bg="#c2c2be", activebackground="#a3a3a2") 
-           operator_button.config(command=lambda s=symbol:on_press_operators(s, expression_entry))
-           operator_button.grid(row=row, column=column, padx=5, pady=5)
-        else:
             operator_button = Button(operators_frame, text=symbol, width=5, height=2, font=("Arial", 20, "bold"), bg="#c2c2be", activebackground="#a3a3a2")
             operator_button.config(command=lambda s=symbol:on_press_operators(s, expression_entry))
             operator_button.grid(row=row, column=column, padx=5, pady=5)
