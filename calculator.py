@@ -61,7 +61,7 @@ def on_press_operators(s, expression_entry):
     if str(expression_entry.get()) == "ERROR":
         delete_everything(expression_entry)
     
-    if s == "log" or s == "ln" or s == "sin" or s == "cos" or s == "tan":
+    if s == "log" or s == "ln" or s == "sin" or s == "cos" or s == "tan" or s == "x!" or s == "√" or s == "e^x":
         position = expression_entry.index(INSERT)
         expression_entry.insert(position, OPERATORS_DICTIONARY[str(s)])
         new_posititon = expression_entry.index(INSERT)
