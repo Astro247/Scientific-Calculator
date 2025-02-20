@@ -47,7 +47,7 @@ def on_press_button(s, expression_entry):
     global expression_text, hidden_expression_text
 
     if str(expression_entry.get()) == "ERROR":
-        cancel_everything(expression_entry)
+        delete_everything(expression_entry)
 
     position = expression_entry.index(INSERT)
     expression_text = str(expression_text) + str(s)
@@ -59,17 +59,24 @@ def on_press_operators(s, expression_entry):
     global expression_text, hidden_expression_text
 
     if str(expression_entry.get()) == "ERROR":
-        cancel_everything(expression_entry)
-
-    position = expression_entry.index(INSERT)
-    expression_entry.insert(position, OPERATORS_DICTIONARY[str(s)])
+        delete_everything(expression_entry)
+    
+    if s == "log" or s == "ln" or s == "sin" or s == "cos" or s == "tan":
+        position = expression_entry.index(INSERT)
+        expression_entry.insert(position, OPERATORS_DICTIONARY[str(s)])
+        new_posititon = expression_entry.index(INSERT)
+        expression_entry.icursor(new_posititon - 1)
+    else:
+        position = expression_entry.index(INSERT)
+        expression_entry.insert(position, OPERATORS_DICTIONARY[str(s)])
+    
     expression_text = str(expression_text) + OPERATORS_DICTIONARY[str(s)]
     hidden_expression_text = expression_text
 
 
-def cancel_one_element(expression_entry):
+def delete_one_element(expression_entry):
     if str(expression_entry.get()) == "ERROR":
-        cancel_everything(expression_entry)
+        delete_everything(expression_entry)
 
     global expression_text, hidden_expression_text
     position = expression_entry.index(INSERT)
@@ -79,7 +86,7 @@ def cancel_one_element(expression_entry):
     hidden_expression_text = expression_entry.get()
 
 
-def cancel_everything(expression_entry):
+def delete_everything(expression_entry):
     global expression_text, hidden_expression_text
     expression_entry.delete(0, END)
     hidden_expression_text = expression_text = ""
@@ -168,9 +175,9 @@ def main():
         numPad_button = Button(numPad_frame, text=symbol, width=5, height=2, font=("Arial", 20, "bold"), bg="#c2c2be", activebackground="#a3a3a2")
         
         if symbol == "⌫":
-            numPad_button.config(command=lambda: cancel_one_element(expression_entry))
+            numPad_button.config(command=lambda: delete_one_element(expression_entry))
         elif symbol == "C":
-            numPad_button.config(command=lambda: cancel_everything(expression_entry))
+            numPad_button.config(command=lambda: delete_everything(expression_entry))
         elif symbol == "=":
             numPad_button.config(command=lambda: solve_expression(expression_entry))
         else:
@@ -184,9 +191,14 @@ def main():
         constant_button.grid(row=row, column=column, padx=5, pady=5) 
 
     for (symbol, row, column) in OPERATORS_BUTTONS_LIST:
-        operator_button = Button(operators_frame, text=symbol, width=5, height=2, font=("Arial", 20, "bold"), bg="#c2c2be", activebackground="#a3a3a2")
-        operator_button.config(command=lambda s=symbol:on_press_operators(s, expression_entry))
-        operator_button.grid(row=row, column=column, padx=5, pady=5)
+        if symbol == "log":
+           operator_button = Button(operators_frame, text=symbol, width=5, height=2, font=("Arial", 20, "bold"), bg="#c2c2be", activebackground="#a3a3a2") 
+           operator_button.config(command=lambda s=symbol:on_press_operators(s, expression_entry))
+           operator_button.grid(row=row, column=column, padx=5, pady=5)
+        else:
+            operator_button = Button(operators_frame, text=symbol, width=5, height=2, font=("Arial", 20, "bold"), bg="#c2c2be", activebackground="#a3a3a2")
+            operator_button.config(command=lambda s=symbol:on_press_operators(s, expression_entry))
+            operator_button.grid(row=row, column=column, padx=5, pady=5)
     
     main_window.mainloop()
 

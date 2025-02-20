@@ -20,7 +20,7 @@ OPERATORS_BUTTONS_LIST = [("+",1,1), ("-",1,2), ("•",1,3), ("÷",1,4),
 
 OPERATORS_DICTIONARY = {"+":"+", "-":"-", "•":"•", "÷":"÷",
                         "^":"^", "log":"log()", "ln":"ln()", "|x|":"||",
-                        "%":"%", "sin":"sin(", "cos":"cos(", "tan":"tan(",
+                        "%":"%", "sin":"sin()", "cos":"cos()", "tan":"tan()",
                         "x!":"!()", "//":"//", "√":"√()", "e^x":"e^()"}
 
 LABELS_LIST = [("CONSTANTS",2,1), ("NUMBERS",2,2), ("OPERATORS",2,3)]
